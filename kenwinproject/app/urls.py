@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import ContactView, ContactAPI
-from user.views import ApiLogin
+from user.views import ApiLogin, APIRegister
 
 
 urlpatterns = [
@@ -13,4 +13,5 @@ urlpatterns = [
     # API
     path('api/login/', ApiLogin.as_view(), name='api_login'),
     path('api/contacts/', ContactAPI.as_view(), name='api_contact_list'),
+    path('api/register/', APIRegister.as_view(), name='api_register'),
 ]

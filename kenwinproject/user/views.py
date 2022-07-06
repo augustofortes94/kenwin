@@ -1,13 +1,14 @@
 import datetime
 import jwt
 from .forms import UserRegisterForm
+from .serializers import RegisterSerializer
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import CreateView
-from rest_framework import status
+from rest_framework import status, generics
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -20,7 +21,6 @@ class ApiLogin(APIView):
     def post(self, request):
         username = request.data['username']
         password = request.data['password']
-
         user = User.objects.filter(username=username).first()
         if user is None:
             return Response({'message': "Error: user not found..."}, status=status.HTTP_404_NOT_FOUND)
@@ -54,3 +54,13 @@ class RegisterUser(CreateView):
         else:
             form = UserRegisterForm()
         return render(request, 'registration/register.html', {'form': form})
+
+
+class APIRegister(generics.GenericAPIView):
+    serializer_class = RegisterSerializer
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response({'message': 'succes'}, status=status.HTTP_200_OK)
