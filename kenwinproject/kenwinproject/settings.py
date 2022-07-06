@@ -23,8 +23,9 @@ else:
     ALLOWED_HOSTS = ['*']
 
 
-LOGIN_REDIRECT_URL = ''
-LOGOUT_REDIRECT_URL = ''
+LOGIN_REDIRECT_URL = '/contact/list'
+LOGOUT_REDIRECT_URL = '/user/accounts/login'
+LOGIN_URL = '/user/accounts/login'
 
 # Application definition
 
@@ -36,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'crispy_forms',
     'app',
     'user',
 ]
@@ -161,7 +163,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-#STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'staticfiles'),)
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
