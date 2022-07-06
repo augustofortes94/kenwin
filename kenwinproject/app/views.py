@@ -58,7 +58,7 @@ class ContactAPI(APIView):
 
     @api_login_required
     def get(self, request, *args, **kwargs):
-        return Response({'message': "Success", 'contacts': list(Contact.objects.values())}, status=status.HTTP_202_ACCEPTED)
+        return Response({'message': "Success", 'contacts': list(Contact.objects.values())}, status=status.HTTP_200_OK)
 
     @api_login_required
     def post(self, request, *args, **kwargs):
@@ -72,4 +72,4 @@ class ContactAPI(APIView):
         )
         serializer = ContactSerializer(data={'firstname': contact.firstname, 'lastname': contact.lastname, 'enterprice': contact.enterprice, 'number': contact.number, 'email': contact.email, 'address  ': contact.address})
         serializer.is_valid(raise_exception=True)
-        return Response({'message': "Success", 'contact': serializer.data}, status=status.HTTP_200_OK)
+        return Response({'message': "Success", 'contact': serializer.data}, status=status.HTTP_202_ACCEPTED)
