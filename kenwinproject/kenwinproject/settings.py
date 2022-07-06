@@ -12,10 +12,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 load_dotenv()
-SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = 'django-insecure-bh97ha8u3y(1ya=e0p0(@ok+^w*^3^@1ab-^7bs-ur*z-m#5bl'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-if os.getenv('ENVIRONMENT_MODE') == "prod":
+ENVIRONMENT_MODE = 'docker'
+if 'ENVIRONMENT_MODE' == "docker":
     DEBUG = False
     ALLOWED_HOSTS = ['*']
 else:
@@ -76,16 +77,29 @@ WSGI_APPLICATION = 'kenwinproject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
-            'default': {
-                'ENGINE': 'django.db.backends.postgresql_psycopg2',
-                'HOST': 'localhost',
-                'PORT': '5432',
-                'USER': 'postgres',
-                'PASSWORD': '1234',
-                'NAME': 'kenwin'
+
+if 'ENVIRONMENT_MODE' == "docker":
+    DATABASES = {
+                'default': {
+                    'ENGINE': 'django.db.backends.postgresql_psycopg2',
+                    'HOST': 'host.docker.internal',
+                    'PORT': '5432',
+                    'USER': 'postgres',
+                    'PASSWORD': '1234',
+                    'NAME': 'kenwin'
+                    }
                 }
-            }
+else:
+    DATABASES = {
+                'default': {
+                    'ENGINE': 'django.db.backends.postgresql_psycopg2',
+                    'HOST': 'host.docker.internal',
+                    'PORT': '5432',
+                    'USER': 'postgres',
+                    'PASSWORD': '1234',
+                    'NAME': 'kenwin'
+                    }
+                }
 
 
 # Password validation
