@@ -1,0 +1,44 @@
+{% extends "../layout.html" %}
+
+{% block title %} Add Contact {% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="d-flex justify-content-center">
+            <div class="card w-100">
+                <h3 class="text-center pt-1">Add Contact</h2>
+                <div class="card-body">
+                    <form id="add-contact" action="/contact/add" method="POST" name="add-contact-form">{% csrf_token %}
+                        <div class="input-group pt-2">
+                            <span class="input-group-text" id="basic-addon3">Firstname</span>
+                            <input type="text" class="form-control" id="add-firstname" name="firstname" required>
+                        </div>
+                        <div class="input-group pt-2">
+                            <span class="input-group-text" id="basic-addon3">Lastname</span>
+                            <input type="text" class="form-control" id="add-lastname" name="lastname">
+                        </div>
+                        <div class="input-group pt-2">
+                            <span class="input-group-text" id="basic-addon3">Enterprice</span>
+                            <input type="text" class="form-control" id="add-enterprice" name="enterprice">
+                        </div>
+                        <div class="input-group pt-2">
+                            <span class="input-group-text" id="basic-addon3">Number</span>
+                            <input type="text" class="form-control" id="add-number" name="number">
+                        </div>
+                        <div class="input-group pt-2">
+                            <span class="input-group-text" id="basic-addon3">Email</span>
+                            <input type="email" class="form-control" id="add-email" name="email">
+                        </div>
+                        <div class="input-group pt-2">
+                            <span class="input-group-text" id="basic-addon3">Address</span>
+                            <input type="text" class="form-control" id="add-address" name="address">
+                        </div>
+                        <div class="form-group pt-2">
+                            <button type="submit" class="btn btn-warning btn-block text-white">Add</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
