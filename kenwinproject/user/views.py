@@ -1,5 +1,5 @@
-import jwt
 import datetime
+import jwt
 from .forms import UserRegisterForm
 from django.contrib import messages
 from django.contrib.auth.models import User

@@ -1,9 +1,16 @@
-from django.shortcuts import redirect, render
-from django.views.generic import ListView
 from .models import Contact
+from .serializers import ContactSerializer
 from django.core.paginator import Paginator
-from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect, render
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
+from django.views.generic import ListView
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from user.decorators import api_login_required
 
 
 class ContactView(ListView):
@@ -42,3 +49,27 @@ class ContactView(ListView):
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
         return render(request, 'crud_contacts/contact_list.html', {'page_obj': page_obj})
+
+
+class ContactAPI(APIView):
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
+    @api_login_required
+    def get(self, request, *args, **kwargs):
+        return Response({'message': "Success", 'contacts': list(Contact.objects.values())}, status=status.HTTP_202_ACCEPTED)
+
+    @api_login_required
+    def post(self, request, *args, **kwargs):
+        contact = Contact.objects.create(
+            firstname=request.data['firstname'],
+            lastname=request.data['lastname'],
+            enterprice=request.data['enterprice'],
+            number=request.data['number'],
+            email=request.data['email'],
+            address=request.data['address'],
+        )
+        serializer = ContactSerializer(data={'firstname': contact.firstname, 'lastname': contact.lastname, 'enterprice': contact.enterprice, 'number': contact.number, 'email': contact.email, 'address  ': contact.address})
+        serializer.is_valid(raise_exception=True)
+        return Response({'message': "Success", 'contact': serializer.data}, status=status.HTTP_200_OK)
