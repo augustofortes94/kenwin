@@ -12,11 +12,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 load_dotenv()
-SECRET_KEY = 'django-insecure-bh97ha8u3y(1ya=e0p0(@ok+^w*^3^@1ab-^7bs-ur*z-m#5bl'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-ENVIRONMENT_MODE = 'docker'
-if 'ENVIRONMENT_MODE' == "docker":
+if os.getenv('ENVIRONMENT_MODE') == "docker":
     DEBUG = False
     ALLOWED_HOSTS = ['*']
 else:
@@ -85,8 +84,8 @@ if 'ENVIRONMENT_MODE' == "docker":
                     'HOST': 'host.docker.internal',
                     'PORT': '5432',
                     'USER': 'postgres',
-                    'PASSWORD': '1234',
-                    'NAME': 'kenwin'
+                    'PASSWORD': os.getenv('DATABASE_PSWD'),
+                    'NAME': os.getenv('DATABASE_NAME')
                     }
                 }
 else:
@@ -96,8 +95,8 @@ else:
                     'HOST': 'host.docker.internal',
                     'PORT': '5432',
                     'USER': 'postgres',
-                    'PASSWORD': '1234',
-                    'NAME': 'kenwin'
+                    'PASSWORD': os.getenv('DATABASE_PSWD'),
+                    'NAME': os.getenv('DATABASE_NAME')
                     }
                 }
 
