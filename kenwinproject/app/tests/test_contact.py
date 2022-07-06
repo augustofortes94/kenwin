@@ -14,7 +14,6 @@ class ContactTestCase(UserTestCase):
                                     address='addresstest',
                                 )
 
-
     def test_get_contact(self):
         contact = self.create_contact()
         response = self.client.get('/api/contacts/')
@@ -26,16 +25,14 @@ class ContactTestCase(UserTestCase):
         self.assertEqual(response.data['contacts'][0]['number'], str(contact.number))
         self.assertEqual(response.data['contacts'][0]['email'], contact.email)
         self.assertEqual(response.data['contacts'][0]['address'], contact.address)
-        
-
 
     def test_post_contact(self):
-        response = self.client.post('/api/contacts/', 
-                                    {"firstname": 'firstnametest',
-                                    'lastname': 'lastnametest',
-                                    'enterprice': 'enterpricetest',
-                                    'number': 1234567,
-                                    'email': 'test@test.com',
-                                    'address': 'addresstest'}
+        response = self.client.post('/api/contacts/',
+                                    {'firstname': 'firstnametest',
+                                        'lastname': 'lastnametest',
+                                        'enterprice': 'enterpricetest',
+                                        'number': 1234567,
+                                        'email': 'test@test.com',
+                                        'address': 'addresstest'}
                                     )
         self.assertEqual(response.status_code, status.HTTP_202_ACCEPTED)

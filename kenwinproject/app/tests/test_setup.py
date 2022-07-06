@@ -12,6 +12,5 @@ class UserTestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         return super().setUp()
 
-
     def tearDown(self) -> None:
         return super().tearDown()

@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import RegisterUser, APIRegister
+from .views import RegisterUser
 
 app_name = 'user'
 

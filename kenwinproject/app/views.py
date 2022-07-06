@@ -30,7 +30,7 @@ class ContactView(ListView):
     @login_required
     def contactAddForm(request):
         return render(request, 'crud_contacts/contact_add.html')
-    
+
     @login_required
     def contactDelete(request, id):
         contact = Contact.objects.get(id=id)
