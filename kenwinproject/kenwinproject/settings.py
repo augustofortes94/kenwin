@@ -15,12 +15,8 @@ load_dotenv()
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-if os.getenv('ENVIRONMENT_MODE') == "docker":
-    DEBUG = False
-    ALLOWED_HOSTS = ['*']
-else:
-    DEBUG = True
-    ALLOWED_HOSTS = ['*']
+DEBUG = True
+ALLOWED_HOSTS = ['*']
 
 
 LOGIN_REDIRECT_URL = '/contact/list'
@@ -77,28 +73,16 @@ WSGI_APPLICATION = 'kenwinproject.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 
-if 'ENVIRONMENT_MODE' == "docker":
-    DATABASES = {
-                'default': {
-                    'ENGINE': 'django.db.backends.postgresql_psycopg2',
-                    'HOST': 'host.docker.internal',
-                    'PORT': '5432',
-                    'USER': 'postgres',
-                    'PASSWORD': os.getenv('DATABASE_PSWD'),
-                    'NAME': os.getenv('DATABASE_NAME')
-                    }
+DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.postgresql_psycopg2',
+                'HOST': os.getenv('POSTGRES_HOST'),
+                'PORT': os.getenv('POSTGRES_PORT'),
+                'USER': os.getenv('POSTGRES_USER'),
+                'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
+                'NAME': os.getenv('POSTGRES_DB')
                 }
-else:
-    DATABASES = {
-                'default': {
-                    'ENGINE': 'django.db.backends.postgresql_psycopg2',
-                    'HOST': 'host.docker.internal',
-                    'PORT': '5432',
-                    'USER': 'postgres',
-                    'PASSWORD': os.getenv('DATABASE_PSWD'),
-                    'NAME': os.getenv('DATABASE_NAME')
-                    }
-                }
+            }
 
 
 # Password validation
